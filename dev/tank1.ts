@@ -8,9 +8,9 @@ class Tank1 extends gameObject {
     private directionX: number = 0;
     private directionY: number = 0;
     
-    public orientation: cVector = new cVector(1, 0);
-    public pointList: Array<cVector> = new Array<cVector>();
-    public rotation: number = 0;
+    //public orientation: cVector = new cVector(1, 0);
+    //public pointList: Array<cVector> = new Array<cVector>();
+    //public rotation: number = 0;
     
     public size: number = 20;
     
@@ -100,6 +100,7 @@ class Tank1 extends gameObject {
     
     public draw() : void {
         this.div.style.transform = "translate("+this.x+"px, "+this.y+"px)";
+        
         
     }
 

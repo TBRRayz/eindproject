@@ -89,9 +89,6 @@ var Tank1 = (function (_super) {
         _super.call(this, "tank1");
         this.directionX = 0;
         this.directionY = 0;
-        this.orientation = new cVector(1, 0);
-        this.pointList = new Array();
-        this.rotation = 0;
         this.size = 20;
         this.directionX = 0;
         this.directionY = 0;
