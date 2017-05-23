@@ -7,11 +7,7 @@ class Tank2 extends gameObject {
     //private div:HTMLElement;
     private directionX: number = 0;
     private directionY: number = 0;
-    
-    
-    public size: number = 20;
-    
-            
+     
     constructor() {
         super("tank2");
         
