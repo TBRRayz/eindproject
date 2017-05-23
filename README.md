@@ -7,5 +7,13 @@ je kan hem hier spel https://tbrrayz.github.io/eindproject/dist/
 
 singleton zit in het aanroepen van de game.
 
-interface zit in de eerste tank.
+interface zit in tank1 die inplements tank.
+
+stratery patron zit er nog niet in.
+
+tank2 extends van gameobject.
+
+
+
+
 
