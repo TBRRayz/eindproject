@@ -8,8 +8,8 @@ class Tank1 extends gameObject {
     private directionX: number = 0;
     private directionY: number = 0;
     
-    //public orientation: cVector = new cVector(1, 0);
-    //public pointList: Array<cVector> = new Array<cVector>();
+    //public orientation: Vector = new Vector(1, 0);
+    //public pointList: Array<Vector> = new Array<Vector>();
     //public rotation: number = 0;
     
     public size: number = 20;
