@@ -10,7 +10,7 @@ class Game {
         
         //this.tank1 = new Tank1();
         
-        this.tank = new Tank1();
+        this.tank = new Tank1(100, 200, "tank1");
         this.tank2 = new Tank2();
         
         requestAnimationFrame(() => this.gameLoop());

@@ -1,12 +1,18 @@
-/// <reference path="gameObject.ts" />
+/// <reference path="tank.ts" />
 
 
-class Tank1 extends gameObject {
+class Tank1 implements Tank {
 
     private speed:number;
     //private div:HTMLElement;
     private directionX: number = 0;
     private directionY: number = 0;
+    
+    public x:number;
+    public y:number;
+    public tag:string;
+    public div:HTMLElement;
+    
     
     //public orientation: Vector = new Vector(1, 0);
     //public pointList: Array<Vector> = new Array<Vector>();
@@ -15,8 +21,8 @@ class Tank1 extends gameObject {
     public size: number = 20;
     
             
-    constructor() {
-        super("tank1");
+    constructor(x:number, y:number, tag:string) {
+        
         
         this.directionX = 0;
         this.directionY = 0;
@@ -24,10 +30,14 @@ class Tank1 extends gameObject {
         
 
         this.speed = 4;
-        this.x = 300;
-        this.y = 100;
+        this.x = x;
+        this.y = y;
+        this.tag = tag;
 
+        let container:HTMLElement = document.getElementById("container");
         
+        this.div = document.createElement(tag);
+        container.appendChild(this.div);
 
         
         window.addEventListener("keydown", (e) => this.onKeyDown(e));
