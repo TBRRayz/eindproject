@@ -18,12 +18,25 @@ singleton zit in het aanroepen van de game.
     
 
 interface zit in tank1 die inplements tank.
+       
+       interface Tank {
+   
+           x: number;
+           y: number;
+           tag: string;
+           div: HTMLElement;
+
+        }
 
 stratery patron zit er nog niet in.
 
 tank2 extends van gameobject.
 
 # UML
+![UML] (uml.png?raw=true "UML")
+
+
+
 
 
 
