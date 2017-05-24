@@ -33,7 +33,7 @@ stratery patron zit er nog niet in.
 tank2 extends van gameobject.
 
 # UML
-![UML] (uml.png?raw=true "UML")
+! [UML] (uml.png?raw=true "UML")
 
 
 
