@@ -7,7 +7,7 @@ je kan hem hier spel https://tbrrayz.github.io/eindproject/
 
 singleton zit in het aanroepen van de game.
 
-public static getInstance() {
+        public static getInstance() {
         if (! Game.instance) {
             Game.instance = new Game();
         }
