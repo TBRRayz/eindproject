@@ -34,7 +34,8 @@ tank2 extends van gameobject.
 
 # UML
 
-! [UML] (UML.png?raw=true "UML")
+![UML](UML.png?raw=true "UML")
+
 
 # nu bezig met
 de besturing voor de tanks op een manier dat de voorkant ook de voorkant blijft van de tank.
