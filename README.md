@@ -12,6 +12,9 @@ stratery patron zit er nog niet in.
 
 tank2 extends van gameobject.
 
+# UML
+
+
 
 
 
