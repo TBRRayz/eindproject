@@ -39,11 +39,14 @@ tank2 extends van gameobject.
 # nu bezig met
 de besturing voor de tanks op een manier dat de voorkant ook de voorkant blijft van de tank.
 
-#moet nog gebeuren
+# moet nog gebeuren
+
 -walls
 -kogels
 -healt balks
 -colision
+
+# feedback week 4
 
 
 
