@@ -34,7 +34,7 @@ tank2 extends van gameobject.
 
 # UML
 
-![UML](UML.png?raw=true "UML")
+![UML](uml.png?raw=true "UML")
 
 # af
 - main.ts
@@ -70,6 +70,17 @@ Probeer voor jezelf wat duidelijkheid te creëren tijdens het programmeren. De c
 Echter staan (stonden) er hier en daar wat 'loze' comments voor functionaliteiten die je hebt gemaakt op een andere plek. Probeer dit soort dingen bij te houden, ziet je code er overzichtelijk uit. Uitlijning en consistentie is belangrijk.
 
 In je UML kon ik maar één tank vinden, maar toch heb je twee tank classes die eigenlijk exact het zelfde doen maar op een andere positie. Tank 1 maakte gebruik van een interface en tank 2 extends van gameObject. Ik heb voor consistentie (en je UML gevolgd) hier beide een extensie van gameObject voor gemaakt. Maar kijk naar de mogelijkheden om maar 1 tank class te hebben. Scheelt veel code die je moet herhalen. 
+
+Suggestie die gecomment is uitleg:
+        ```
+        if (this.y > 20 && this.y < document.getElementById("container").clientWidth - 50) {
+            this.y = this.y + this.speed * this.directionY;
+        }
+```
+Op dit moment kun je met de tank uit het scherm bewegen. Ik neem aan dat dit iets is wat je wilt voorkomen.
+Probeer iets als bovenstaande code te gebruiken om dit te voorkomen o.i.d.
+
+Verder moet je even kijken of je wilt vermenigvuldigen in deze berekening, nu gaat het goed, maar als je met veranderende vars wilt werken (zag iets over powerups) kan dit misschien gaan tegenwerken.
 
 ### Beoordeling week 4
 - [x] De code voor het deelproduct staat op je eigen github
