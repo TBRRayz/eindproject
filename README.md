@@ -72,7 +72,7 @@ Echter staan (stonden) er hier en daar wat 'loze' comments voor functionaliteite
 In je UML kon ik maar één tank vinden, maar toch heb je twee tank classes die eigenlijk exact het zelfde doen maar op een andere positie. Tank 1 maakte gebruik van een interface en tank 2 extends van gameObject. Ik heb voor consistentie (en je UML gevolgd) hier beide een extensie van gameObject voor gemaakt. Maar kijk naar de mogelijkheden om maar 1 tank class te hebben. Scheelt veel code die je moet herhalen. 
 
 Suggestie die gecomment is uitleg:
-        ```
+```
         if (this.y > 20 && this.y < document.getElementById("container").clientWidth - 50) {
             this.y = this.y + this.speed * this.directionY;
         }
