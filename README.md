@@ -36,6 +36,23 @@ tank2 extends van gameobject.
 
 ![UML](UML.png?raw=true "UML")
 
+# af
+main.ts
+game.ts
+
+# bezig
+tank.ts
+tank1.ts
+tank2.ts
+vector.ts
+
+# nog maken
+wall.ts
+wall2.ts
+shell.ts
+
+
+
 
 # nu bezig met
 de besturing voor de tanks op een manier dat de voorkant ook de voorkant blijft van de tank.
