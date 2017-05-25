@@ -8,6 +8,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var Behavior = (function () {
+    function Behavior() {
+    }
+    Behavior.prototype.performBehavior = function () {
+    };
+    return Behavior;
+}());
 var Game = (function () {
     function Game() {
         var _this = this;
@@ -42,9 +49,37 @@ var gameObject = (function () {
     };
     return gameObject;
 }());
+var Idle = (function (_super) {
+    __extends(Idle, _super);
+    function Idle(t) {
+        var _this = _super.call(this) || this;
+        _this.tank = t;
+        return _this;
+    }
+    Idle.prototype.performBehavior = function () {
+        console.log('behavior idle uitvoeren');
+    };
+    Idle.prototype.onTimerFinished = function () {
+    };
+    return Idle;
+}(Behavior));
 window.addEventListener("load", function () {
     var g = Game.getInstance();
 });
+var Reloading = (function (_super) {
+    __extends(Reloading, _super);
+    function Reloading(t) {
+        var _this = _super.call(this) || this;
+        _this.tank = t;
+        return _this;
+    }
+    Reloading.prototype.performBehavior = function () {
+        console.log('behavior reloading uitvoeren');
+    };
+    Reloading.prototype.onTimerFinished = function () {
+    };
+    return Reloading;
+}(Behavior));
 var Tank1 = (function (_super) {
     __extends(Tank1, _super);
     function Tank1() {

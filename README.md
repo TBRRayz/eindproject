@@ -71,6 +71,8 @@ Echter staan (stonden) er hier en daar wat 'loze' comments voor functionaliteite
 
 In je UML kon ik maar één tank vinden, maar toch heb je twee tank classes die eigenlijk exact het zelfde doen maar op een andere positie. Tank 1 maakte gebruik van een interface en tank 2 extends van gameObject. Ik heb voor consistentie (en je UML gevolgd) hier beide een extensie van gameObject voor gemaakt. Maar kijk naar de mogelijkheden om maar 1 tank class te hebben. Scheelt veel code die je moet herhalen. 
 
+Verder heb ik drie files aangemaakt, een behavior.ts een reloading.ts en een idle.ts. Hiermee kan je uit de voeten voor je strategy pattern. Omdat je op dit moment twee tank classes hebt, raad ik je aan eerst dit op te lossen voordat je hier gebruik van maakt. Maar met deze files kan je goed op weg naar een strategy pattern. Lees verder voor uitleg waarom die filenamen:).
+
 Suggestie die gecomment is uitleg:
 ```
         if (this.y > 20 && this.y < document.getElementById("container").clientWidth - 50) {
