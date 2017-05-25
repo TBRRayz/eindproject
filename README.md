@@ -37,19 +37,19 @@ tank2 extends van gameobject.
 ![UML](UML.png?raw=true "UML")
 
 # af
-main.ts
-game.ts
+- main.ts
+- game.ts
 
 # bezig
-tank.ts
-tank1.ts
-tank2.ts
-vector.ts
+- tank.ts
+- tank1.ts
+- tank2.ts
+- vector.ts
 
 # nog maken
-wall.ts
-wall2.ts
-shell.ts
+- wall.ts
+- wall2.ts
+- shell.ts
 
 
 
@@ -59,10 +59,10 @@ de besturing voor de tanks op een manier dat de voorkant ook de voorkant blijft 
 
 # moet nog gebeuren
 
--walls
--kogels
--healt balks
--colision
+- walls
+- kogels
+- healt balks
+- colision
 
 # feedback week 4
 
