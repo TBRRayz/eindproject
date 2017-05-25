@@ -34,7 +34,7 @@ tank2 extends van gameobject.
 
 # UML
 
-![UML](uml.png?raw=true "UML")
+![UML](UML.png?raw=true "UML")
 
 # af
 - main.ts
