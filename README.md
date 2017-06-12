@@ -65,6 +65,45 @@ de besturing voor de tanks op een manier dat de voorkant ook de voorkant blijft 
 - colision
 
 # feedback week 4
+Probeer voor jezelf wat duidelijkheid te creëren tijdens het programmeren. De code ziet er goed uit, je kunt goed zien dat je weet waar je mee bezig bent.
+
+Echter staan (stonden) er hier en daar wat 'loze' comments voor functionaliteiten die je hebt gemaakt op een andere plek. Probeer dit soort dingen bij te houden, ziet je code er overzichtelijk uit. Uitlijning en consistentie is belangrijk.
+
+In je UML kon ik maar één tank vinden, maar toch heb je twee tank classes die eigenlijk exact het zelfde doen maar op een andere positie. Tank 1 maakte gebruik van een interface en tank 2 extends van gameObject. Ik heb voor consistentie (en je UML gevolgd) hier beide een extensie van gameObject voor gemaakt. Maar kijk naar de mogelijkheden om maar 1 tank class te hebben. Scheelt veel code die je moet herhalen. 
+
+Verder heb ik drie files aangemaakt, een behavior.ts een reloading.ts en een idle.ts. Hiermee kan je uit de voeten voor je strategy pattern. Omdat je op dit moment twee tank classes hebt, raad ik je aan eerst dit op te lossen voordat je hier gebruik van maakt. Maar met deze files kan je goed op weg naar een strategy pattern. Lees verder voor uitleg waarom die filenamen:).
+
+Suggestie die gecomment is uitleg:
+```
+        if (this.y > 20 && this.y < document.getElementById("container").clientWidth - 50) {
+            this.y = this.y + this.speed * this.directionY;
+        }
+```
+Op dit moment kun je met de tank uit het scherm bewegen. Ik neem aan dat dit iets is wat je wilt voorkomen.
+Probeer iets als bovenstaande code te gebruiken om dit te voorkomen o.i.d.
+
+Verder moet je even kijken of je wilt vermenigvuldigen in deze berekening, nu gaat het goed, maar als je met veranderende vars wilt werken (zag iets over powerups) kan dit misschien gaan tegenwerken.
+
+### Beoordeling week 4
+- [x] De code voor het deelproduct staat op je eigen github
+- [x] Er is een live page waar de game speelbaar is
+- [x] Het deelproduct moet werkend zijn zonder foutmeldingen / bugs
+- [x] Het deelproduct bevat een Readme (evt. met installatie instructies)
+- [x] Er is een klassendiagram aanwezig
+- [x] Je legt uit in je Readme waar je gebruik maakt van de volgende programmeerprincipes
+    - [x] Interface
+    - [x] Static Utility Method
+    - [x] Singleton
+    - [x] Strategy
+    - [x] Een van de programmeertechnieken uit jaar 1:
+        - [x] Encapsulation
+        - [x] Inheritance
+
+Opmerkingen:
+Je bent heel erg goed op weg naar het eindproduct. Ik mis nog een strategy pattern. In je UML kon ik deze ook niet zo snel vinden.
+Een tip vanuit mij zou zijn om een tankbehavior te maken waar je een idle behavior hebt en een reloading. En dat je een functionaliteit toevoegd waardoor een tank x aantal bullets heeft. Als deze op zijn je moet reloaden en in een behavior terecht komt waar je 1 of 2 seconden stilstaat (of niet kunt schieten) of iets dergelijks.
+
+Resultaat: Voldoende
 
 
 

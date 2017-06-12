@@ -8,17 +8,10 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Behavior = (function () {
-    function Behavior() {
-    }
-    Behavior.prototype.performBehavior = function () {
-    };
-    return Behavior;
-}());
 var Game = (function () {
     function Game() {
         var _this = this;
-        this.tank = new Tank1();
+        this.tank = new Tank1(100, 200, "tank1");
         this.tank2 = new Tank2();
         requestAnimationFrame(function () { return _this.gameLoop(); });
     }
@@ -49,52 +42,26 @@ var gameObject = (function () {
     };
     return gameObject;
 }());
-var Idle = (function (_super) {
-    __extends(Idle, _super);
-    function Idle(t) {
-        var _this = _super.call(this) || this;
-        _this.tank = t;
-        return _this;
-    }
-    Idle.prototype.performBehavior = function () {
-        console.log('behavior idle uitvoeren');
-    };
-    Idle.prototype.onTimerFinished = function () {
-    };
-    return Idle;
-}(Behavior));
 window.addEventListener("load", function () {
     var g = Game.getInstance();
 });
-var Reloading = (function (_super) {
-    __extends(Reloading, _super);
-    function Reloading(t) {
-        var _this = _super.call(this) || this;
-        _this.tank = t;
-        return _this;
-    }
-    Reloading.prototype.performBehavior = function () {
-        console.log('behavior reloading uitvoeren');
-    };
-    Reloading.prototype.onTimerFinished = function () {
-    };
-    return Reloading;
-}(Behavior));
-var Tank1 = (function (_super) {
-    __extends(Tank1, _super);
-    function Tank1() {
-        var _this = _super.call(this, "tank1") || this;
-        _this.directionX = 0;
-        _this.directionY = 0;
-        _this.size = 20;
-        _this.directionX = 0;
-        _this.directionY = 0;
-        _this.speed = 4;
-        _this.x = 100;
-        _this.y = 200;
+var Tank1 = (function () {
+    function Tank1(x, y, tag) {
+        var _this = this;
+        this.directionX = 0;
+        this.directionY = 0;
+        this.size = 20;
+        this.directionX = 0;
+        this.directionY = 0;
+        this.speed = 4;
+        this.x = x;
+        this.y = y;
+        this.tag = tag;
+        var container = document.getElementById("container");
+        this.div = document.createElement(tag);
+        container.appendChild(this.div);
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
         window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
-        return _this;
     }
     Tank1.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
@@ -128,13 +95,13 @@ var Tank1 = (function (_super) {
     };
     Tank1.prototype.move = function () {
         this.x = this.x + this.speed * this.directionX;
-        this.y = this.y + this.speed * this.directionY;
+        console.log("test");
     };
     Tank1.prototype.draw = function () {
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
     return Tank1;
-}(gameObject));
+}());
 var Tank2 = (function (_super) {
     __extends(Tank2, _super);
     function Tank2() {

@@ -1,8 +1,8 @@
 interface Tank {
    
-   x: number;
-   y: number;
-   tag: string;
-   div: HTMLElement;
+   x    : number;
+   y    : number;
+   tag  : string;
+   div  : HTMLElement;
    
 }
