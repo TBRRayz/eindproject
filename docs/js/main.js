@@ -19,7 +19,7 @@ var Collision = (function () {
 var Game = (function () {
     function Game() {
         var _this = this;
-        this.tank1 = new Tank1(500, 300);
+        this.tank1 = new Tank1(1000, 200);
         this.tank2 = new Tank2(100, 200);
         this.level = new Level();
         requestAnimationFrame(function () { return _this.gameLoop(); });
@@ -107,17 +107,27 @@ var Level = (function () {
         this.WallArray = new Array();
         this.collision = new Collision();
     }
-    Level.prototype.Draw = function () {
-        ctx.font = '48px serif';
-        ctx.fillText('Hello world', 10, 50);
-    };
     Level.prototype.Update = function (T1, T2) {
-        this.Draw();
         for (var i = 0; i < 1280; i += 40) {
             this.WallArray.push(new Wall(i, 0));
         }
         for (var i = 0; i < 1280; i += 40) {
             this.WallArray.push(new Wall(i, 640));
+        }
+        for (var i = 0; i < 200; i += 40) {
+            this.WallArray.push(new Wall(i, 320));
+        }
+        for (var i = 1280; i > 1040; i -= 40) {
+            this.WallArray.push(new Wall(i, 320));
+        }
+        for (var i = 480; i < 800; i += 40) {
+            this.WallArray.push(new Wall(i, 160));
+        }
+        for (var i = 160; i < 480; i += 40) {
+            this.WallArray.push(new Wall(i, 520));
+        }
+        for (var i = 800; i < 1120; i += 40) {
+            this.WallArray.push(new Wall(i, 520));
         }
         for (var i = 0; i < 640; i += 40) {
             this.WallArray.push(new Wall(0, i));
@@ -125,13 +135,23 @@ var Level = (function () {
         for (var i = 0; i < 640; i += 40) {
             this.WallArray.push(new Wall(1240, i));
         }
+        for (var i = 0; i < 300; i += 40) {
+            this.WallArray.push(new Wall(320, i));
+        }
+        for (var i = 0; i < 300; i += 40) {
+            this.WallArray.push(new Wall(920, i));
+        }
+        for (var i = 640; i > 340; i -= 40) {
+            this.WallArray.push(new Wall(600, i));
+        }
+        for (var i = 640; i > 340; i -= 40) {
+            this.WallArray.push(new Wall(640, i));
+        }
         this.tank1 = T1;
         this.tank2 = T2;
         for (var i = 0; i < this.WallArray.length; i++) {
             if (this.collision.hasOverlap(this.tank1, this.WallArray[i])) {
                 console.log("tank1hint");
-                this.tank1.velocity.x = 0;
-                this.tank1.velocity.y = 0;
             }
         }
     };
