@@ -8,25 +8,29 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Behavior = (function () {
-    function Behavior() {
+var Collision = (function () {
+    function Collision() {
     }
-    Behavior.prototype.performBehavior = function () {
+    Collision.prototype.hasOverlap = function (c1, c2) {
+        return !(c2.x > c1.x + c1.width || c2.x + c2.width < c1.x || c2.y > c1.y + c1.height || c2.y + c2.height < c1.y);
     };
-    return Behavior;
+    return Collision;
 }());
 var Game = (function () {
     function Game() {
         var _this = this;
-        this.tank = new Tank1();
-        this.tank2 = new Tank2();
+        this.tank1 = new Tank1(1000, 200);
+        this.tank2 = new Tank2(100, 200);
+        this.level = new Level();
         requestAnimationFrame(function () { return _this.gameLoop(); });
     }
+    ;
     Game.prototype.gameLoop = function () {
         var _this = this;
-        this.tank.move();
-        this.tank.draw();
-        this.tank2.move();
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, 1280, 720);
+        this.level.Update(this.tank1, this.tank2);
+        this.tank1.draw();
         this.tank2.draw();
         requestAnimationFrame(function () { return _this.gameLoop(); });
     };
@@ -39,153 +43,298 @@ var Game = (function () {
     return Game;
 }());
 var gameObject = (function () {
-    function gameObject(tag) {
-        this.createDiv(tag);
+    function gameObject() {
+        this.velocity = new Vector(0, 0);
+        this.orientation = new Vector(0, 0);
+        this.maxSpeed = 50;
+        this.maxSpeedSQ = 100;
+        this.acceleration = 1;
+        this.rotation = 0;
+        this._tempPoint = new Vector(0, 0);
+        this.width = 50;
+        this.height = 61;
+        this.shellAray = new Array();
+        this.shellAlive = false;
     }
-    gameObject.prototype.createDiv = function (tag) {
-        var container = document.getElementById("container");
-        this.div = document.createElement(tag);
-        container.appendChild(this.div);
+    gameObject.prototype.accelerate = function () {
+        this.velocity.copy(this.orientation);
+        this.velocity.multiply(this.acceleration);
+        this._tempPoint.copy(this.orientation);
+        this._tempPoint.multiply(this.acceleration);
+        this.velocity.add(this._tempPoint);
+        if (this.velocity.magSq() >= this.maxSpeedSQ) {
+            this.velocity.multiply(this.maxSpeed / this.velocity.magnitude());
+        }
+    };
+    gameObject.prototype.decelerate = function () {
+        this.velocity.multiply(0.5);
+        if (this.velocity.magSq() < 1) {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        }
+    };
+    gameObject.prototype.turnLeft = function () {
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+        this.rotation -= 0.1;
+        if (this.rotation < 0) {
+            this.rotation += Math.PI * 2;
+        }
+        this.orientation.x = 1;
+        this.orientation.y = 0;
+        this.orientation.rotate(-this.rotation);
+    };
+    gameObject.prototype.turnRight = function () {
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+        this.rotation += 0.1;
+        this.rotation %= Math.PI * 2;
+        this.orientation.x = 1;
+        this.orientation.y = 0;
+        this.orientation.rotate(-this.rotation);
+    };
+    gameObject.prototype.shoot = function () {
+        console.log('shoot tank');
+        this.shellAray.push(new shell(this));
+        if (this.shellAlive == false) {
+            this.shellAlive = true;
+        }
     };
     return gameObject;
 }());
-var Idle = (function (_super) {
-    __extends(Idle, _super);
-    function Idle(t) {
-        var _this = _super.call(this) || this;
-        _this.tank = t;
-        return _this;
+var Level = (function () {
+    function Level() {
+        this.WallArray = new Array();
+        this.collision = new Collision();
     }
-    Idle.prototype.performBehavior = function () {
-        console.log('behavior idle uitvoeren');
+    Level.prototype.Update = function (T1, T2) {
+        for (var i = 0; i < 1280; i += 40) {
+            this.WallArray.push(new Wall(i, 0));
+        }
+        for (var i = 0; i < 1280; i += 40) {
+            this.WallArray.push(new Wall(i, 640));
+        }
+        for (var i = 0; i < 200; i += 40) {
+            this.WallArray.push(new Wall(i, 320));
+        }
+        for (var i = 1280; i > 1040; i -= 40) {
+            this.WallArray.push(new Wall(i, 320));
+        }
+        for (var i = 480; i < 800; i += 40) {
+            this.WallArray.push(new Wall(i, 160));
+        }
+        for (var i = 160; i < 480; i += 40) {
+            this.WallArray.push(new Wall(i, 520));
+        }
+        for (var i = 800; i < 1120; i += 40) {
+            this.WallArray.push(new Wall(i, 520));
+        }
+        for (var i = 0; i < 640; i += 40) {
+            this.WallArray.push(new Wall(0, i));
+        }
+        for (var i = 0; i < 640; i += 40) {
+            this.WallArray.push(new Wall(1240, i));
+        }
+        for (var i = 0; i < 300; i += 40) {
+            this.WallArray.push(new Wall(320, i));
+        }
+        for (var i = 0; i < 300; i += 40) {
+            this.WallArray.push(new Wall(920, i));
+        }
+        for (var i = 640; i > 340; i -= 40) {
+            this.WallArray.push(new Wall(600, i));
+        }
+        for (var i = 640; i > 340; i -= 40) {
+            this.WallArray.push(new Wall(640, i));
+        }
+        this.tank1 = T1;
+        this.tank2 = T2;
+        for (var i = 0; i < this.WallArray.length; i++) {
+            if (this.collision.hasOverlap(this.tank1, this.WallArray[i])) {
+                console.log("tank1hint");
+            }
+        }
     };
-    Idle.prototype.onTimerFinished = function () {
-    };
-    return Idle;
-}(Behavior));
+    return Level;
+}());
+var canvas;
+var ctx;
 window.addEventListener("load", function () {
+    canvas = document.getElementById('cnvs');
+    ctx = canvas.getContext("2d");
     var g = Game.getInstance();
 });
-var Reloading = (function (_super) {
-    __extends(Reloading, _super);
-    function Reloading(t) {
-        var _this = _super.call(this) || this;
-        _this.tank = t;
-        return _this;
+var Moving = (function () {
+    function Moving(T) {
+        this.Tank = T;
     }
-    Reloading.prototype.performBehavior = function () {
-        console.log('behavior reloading uitvoeren');
+    Moving.prototype.onShoot = function () {
+        this.Tank.behavior = new Shooting(this.Tank);
     };
-    Reloading.prototype.onTimerFinished = function () {
+    Moving.prototype.onRight = function () {
+        this.Tank.turnRight();
     };
-    return Reloading;
-}(Behavior));
+    Moving.prototype.onLeft = function () {
+        this.Tank.turnLeft();
+    };
+    Moving.prototype.onUp = function () {
+        this.Tank.accelerate();
+    };
+    Moving.prototype.onDown = function () {
+        this.Tank.decelerate();
+    };
+    return Moving;
+}());
+var shell = (function () {
+    function shell(tank) {
+        this.width = 20;
+        this.height = 20;
+        this.Vector = new Vector(0, 0);
+        this.getPath = true;
+        this.speed = 5;
+        this.alive = true;
+        this.tank = tank;
+        this.Image = new Image(this.width, this.height);
+        this.Image.src = "images/shell.png";
+        this.x = this.tank.velocity.x + 10;
+        this.y = this.tank.velocity.y;
+    }
+    shell.prototype.update = function (tank) {
+        if (this.getPath == true) {
+            this.Vector.copy(tank);
+            this.Vector.multiply(-10);
+            this.getPath = false;
+        }
+        this.draw();
+    };
+    shell.prototype.draw = function () {
+        this.x += this.Vector.x;
+        this.y += this.Vector.y;
+        ctx.save();
+        ctx.translate(this.tank.x, this.tank.y);
+        ctx.drawImage(this.Image, 0 - this.x, 0 - this.y);
+        ctx.restore();
+    };
+    return shell;
+}());
+var Shooting = (function () {
+    function Shooting(T) {
+        this.Tank = T;
+    }
+    Shooting.prototype.onShoot = function () {
+        this.Tank.shoot();
+    };
+    Shooting.prototype.onRight = function () {
+        this.Tank.behavior = new Moving(this.Tank);
+    };
+    Shooting.prototype.onLeft = function () {
+        this.Tank.behavior = new Moving(this.Tank);
+    };
+    Shooting.prototype.onUp = function () {
+        this.Tank.behavior = new Moving(this.Tank);
+    };
+    Shooting.prototype.onDown = function () {
+        this.Tank.behavior = new Moving(this.Tank);
+    };
+    return Shooting;
+}());
 var Tank1 = (function (_super) {
     __extends(Tank1, _super);
-    function Tank1() {
-        var _this = _super.call(this, "tank1") || this;
-        _this.directionX = 0;
-        _this.directionY = 0;
-        _this.size = 20;
-        _this.directionX = 0;
-        _this.directionY = 0;
-        _this.speed = 4;
-        _this.x = 100;
-        _this.y = 200;
+    function Tank1(x, y) {
+        var _this = _super.call(this) || this;
+        _this.draw = function () {
+            _this.update();
+            _this.x += _this.velocity.x;
+            _this.y += _this.velocity.y;
+            ctx.save();
+            ctx.translate(_this.x, _this.y);
+            ctx.rotate(_this.rotation);
+            ctx.drawImage(_this.Image, 0 - _this.width / 2, 0 - _this.height / 2);
+            ctx.restore();
+        };
+        _this.x = x;
+        _this.y = y;
+        _this.behavior = new Moving(_this);
+        _this.Image = new Image(_this.width, _this.height);
+        _this.Image.src = "images/tank.png";
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
-        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
         return _this;
     }
     Tank1.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
             case 39:
+                this.behavior.onRight();
                 break;
             case 40:
-                this.directionY = 1;
+                this.behavior.onDown();
                 break;
             case 38:
-                this.directionY = -1;
+                this.behavior.onUp();
                 break;
             case 37:
+                this.behavior.onLeft();
+                break;
+            case 32:
+                this.behavior.onShoot();
                 break;
         }
     };
-    Tank1.prototype.onKeyUp = function (event) {
-        switch (event.keyCode) {
-            case 39:
-                this.directionX = 0;
-                break;
-            case 40:
-                this.directionY = 0;
-                break;
-            case 38:
-                this.directionY = 0;
-                break;
-            case 37:
-                this.directionX = 0;
-                break;
+    Tank1.prototype.update = function () {
+        if (this.shellAlive == true) {
+            for (var i = 0; i < this.shellAray.length; i++) {
+                this.shellAray[i].update(this.orientation);
+            }
         }
-    };
-    Tank1.prototype.move = function () {
-        this.x = this.x + this.speed * this.directionX;
-        this.y = this.y + this.speed * this.directionY;
-    };
-    Tank1.prototype.draw = function () {
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
     return Tank1;
 }(gameObject));
 var Tank2 = (function (_super) {
     __extends(Tank2, _super);
-    function Tank2() {
-        var _this = _super.call(this, "tank2") || this;
-        _this.directionX = 0;
-        _this.directionY = 0;
-        _this.directionX = 0;
-        _this.directionY = 0;
-        _this.speed = 4;
-        _this.x = 500;
-        _this.y = 400;
+    function Tank2(x, y) {
+        var _this = _super.call(this) || this;
+        _this.draw = function () {
+            _this.update();
+            _this.x += _this.velocity.x;
+            _this.y += _this.velocity.y;
+            ctx.save();
+            ctx.translate(_this.x, _this.y);
+            ctx.rotate(_this.rotation);
+            ctx.drawImage(_this.Image, 0 - _this.width / 2, 0 - _this.height / 2);
+            ctx.restore();
+        };
+        _this.x = x;
+        _this.y = y;
+        _this.behavior = new Moving(_this);
+        _this.Image = new Image(_this.width, _this.height);
+        _this.Image.src = "images/tank2.png";
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
-        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
         return _this;
     }
     Tank2.prototype.onKeyDown = function (event) {
         switch (event.keyCode) {
-            case 65:
+            case 68:
+                this.behavior.onRight();
                 break;
             case 83:
-                this.directionY = 1;
+                this.behavior.onDown();
                 break;
             case 87:
-                this.directionY = -1;
+                this.behavior.onUp();
                 break;
-            case 68:
+            case 65:
+                this.behavior.onLeft();
+                break;
+            case 17:
+                this.behavior.onShoot();
                 break;
         }
     };
-    Tank2.prototype.onKeyUp = function (event) {
-        switch (event.keyCode) {
-            case 65:
-                this.directionX = 0;
-                break;
-            case 83:
-                this.directionY = 0;
-                break;
-            case 87:
-                this.directionY = 0;
-                break;
-            case 68:
-                this.directionX = 0;
-                break;
+    Tank2.prototype.update = function () {
+        if (this.shellAlive == true) {
+            for (var i = 0; i < this.shellAray.length; i++) {
+                this.shellAray[i].update(this.orientation);
+            }
         }
-    };
-    Tank2.prototype.move = function () {
-        this.x = this.x + this.speed * this.directionX;
-        this.y = this.y + this.speed * this.directionY;
-    };
-    Tank2.prototype.draw = function () {
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
     return Tank2;
 }(gameObject));
@@ -196,12 +345,26 @@ var Vector = (function () {
         var _this = this;
         this.x = 0;
         this.y = 0;
+        this.magnitude = function () {
+            return Math.sqrt(_this.x * _this.x + _this.y * _this.y);
+        };
+        this.magSq = function () {
+            return _this.x * _this.x + _this.y * _this.y;
+        };
         this.normalize = function (magnitude) {
             if (magnitude === void 0) { magnitude = 1; }
             var len = Math.sqrt(_this.x * _this.x + _this.y * _this.y);
             _this.x /= len;
             _this.y /= len;
             return _this;
+        };
+        this.zero = function () {
+            _this.x = 0;
+            _this.y = 0;
+        };
+        this.copy = function (point) {
+            _this.x = point.x;
+            _this.y = point.y;
         };
         this.rotate = function (radians) {
             var cos = Math.cos(radians);
@@ -230,5 +393,20 @@ var Vector = (function () {
         this.y = y;
     }
     return Vector;
+}());
+var Wall = (function () {
+    function Wall(x, y) {
+        this.width = 40;
+        this.height = 40;
+        this.x = x;
+        this.y = y;
+        this.Imagewall1 = new Image(40, 40);
+        this.Imagewall1.src = "images/wall1.gif";
+        this.Draw();
+    }
+    Wall.prototype.Draw = function () {
+        ctx.drawImage(this.Imagewall1, this.x, this.y);
+    };
+    return Wall;
 }());
 //# sourceMappingURL=main.js.map
