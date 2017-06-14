@@ -1,13 +1,10 @@
-abstract class Behavior {
-    tank    :   Tank1;
-
-    constructor() {
-        
-    }
-
-    performBehavior() {
-
-    }
-
-    abstract onTimerFinished();
+interface TankBehavior 
+{
+    Tank : gameObject;
+    
+    onShoot();
+    onRight();
+    onLeft();
+    onUp();
+    onDown();
 }

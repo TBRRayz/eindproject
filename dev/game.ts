@@ -1,28 +1,37 @@
-class Game {
+class Game 
+{
         
     private static instance:Game;  
-    private tank:Tank1;
-    private tank2:Tank2;
-     
-    constructor() {
-        //this.tank1 = new Tank1();
-        
-        this.tank = new Tank1();
-        this.tank2 = new Tank2();
-        
+    
+    private tank1:Tank1 = new Tank1(500, 300);;
+    private tank2:Tank2 = new Tank2(100, 200);
+    private level:Level = new Level();
+
+    constructor() 
+    {
+        //gameloop aanroepen
         requestAnimationFrame(() => this.gameLoop());
     }
 
-    private gameLoop(){
-        this.tank.move();
-        this.tank.draw();
-        this.tank2.move();
+    private gameLoop()
+    {
+
+        
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, 1280, 720);
+        this.level.Update(this.tank1, this.tank2);
+
+        this.tank1.draw();
         this.tank2.draw();
+        
         requestAnimationFrame(() => this.gameLoop());
     }
 
-    public static getInstance() {
-        if (! Game.instance) {
+    //checken of er al een game instance is
+    public static getInstance() 
+    {
+        if (! Game.instance) 
+        {
             Game.instance = new Game();
         }
         return Game.instance;

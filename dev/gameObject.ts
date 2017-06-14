@@ -1,24 +1,101 @@
 /**
  * gameObject
  */
-class gameObject {
+class gameObject 
+{
     
-    protected div:HTMLElement;
-    protected x:number;
-    protected y:number;
+    public x:number;
+    public y:number;
+
+    public velocity: Vector = new Vector(0, 0);
+    public orientation: Vector = new Vector(0, 0);
+    public maxSpeed: number = 50;
+    public maxSpeedSQ: number = 100;
+    public acceleration: number = 1;
+
+    public rotation: number = 0;
+    public _tempPoint: Vector = new Vector(0, 0);
+
+    public behavior : TankBehavior;
     
-    constructor(tag: string) {
+    public Image: HTMLImageElement;
+    public width: number = 50;
+    public height: number = 61;
+
+    public shellAray: Array<shell> = new Array<shell>();
+    public shellAlive:boolean = false;
+
+    constructor() {
         
         
-        this.createDiv(tag);
     }
-    
-    private createDiv(tag: string):void{
+
+    public accelerate(): void 
+    {
+        //naar voren bewegen van de tank
+        this.velocity.copy(this.orientation);
+        this.velocity.multiply(this.acceleration);
         
-        let container:HTMLElement = document.getElementById("container");
-        
-        this.div = document.createElement(tag);
-        container.appendChild(this.div);
+
+        this._tempPoint.copy(this.orientation);
+        this._tempPoint.multiply(this.acceleration);
+        this.velocity.add(this._tempPoint);
+        if (this.velocity.magSq() >= this.maxSpeedSQ) {
+            this.velocity.multiply(this.maxSpeed / this.velocity.magnitude());
+        }
         
     }
+
+    public decelerate(): void
+    {
+        //het afremen van de tank
+        this.velocity.multiply(0.5);
+
+        if (this.velocity.magSq() < 1) 
+        {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        }
+    }
+
+    public turnLeft(): void
+    {
+        //links omdraaien van de tank
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+        this.rotation -= 0.1;
+        if (this.rotation < 0) 
+        {
+            this.rotation += Math.PI * 2;
+        }
+        this.orientation.x = 1;
+        this.orientation.y = 0;
+        this.orientation.rotate(-this.rotation);
+    }
+
+    public turnRight(): void
+    {
+        //rechts omdraaien van de tank
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+        this.rotation += 0.1;
+        this.rotation %= Math.PI * 2;
+        this.orientation.x = 1;
+        this.orientation.y = 0;
+        this.orientation.rotate(-this.rotation);
+    }
+
+     public shoot():void
+     {
+        console.log('shoot tank');
+
+        this.shellAray.push(new shell(this));
+        if(this.shellAlive == false)
+        {
+            this.shellAlive = true;
+        }
+        
+    }
+
+    
 }
