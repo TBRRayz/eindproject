@@ -179,7 +179,9 @@ Links:
 Als je vragen hebt over deze libraries hoor ik ze graag. Kijk ook even op Erik(?)/CMGT z'n GitHub, staat wat uitleg over.
 
 ### Observers
-Je mist ook nog observer/subject stuk. Ik vind het lastig om zo snel iets te bedenken waar je dit goed kan toepassen, maar je zou het kunnen doen bij je tank en wall oid? Bijvoorbeeld dat als tank1 de muur raakt, dat tank2 hiervan notified wordt en voor korte tijd meer schade aanricht, sneller beweegd of iets.
+Je mist ook nog observer/subject stuk. Ik vind het lastig om zo snel iets te bedenken waar je dit goed kan toepassen, maar je zou het kunnen doen bij je tank en wall oid? Bijvoorbeeld dat als tank1 de muur raakt, dat tank2 hiervan notified wordt en voor korte tijd meer schade aanricht, sneller beweegd of iets. 
+
+Probeer zelf wat te bedenken want ik ben er van overtuigd dat je een beter invulling kunt geven aan observers.
 
 Ik heb de observer.ts en subject.ts files voor je aangemaakt. Probeer te bedenken waar je deze gaat gebruiken in je spel. Om je wel wat op weg te helpen hier een voorbeeldje van mijn code (compleet kun je vinden op mijn Git)
 
@@ -217,7 +219,10 @@ public notify() {
 }
 ```
 
+------------
 Ik hoop dat je hier mee goed op weg kunt! Al met al ben je echt goed bezig. Probeer deze week de laatste dingen nog even te maken.
+
+Als je nog vragen hebt of dingen wilt weten hoor ik 't wel.
 
 ## Beoordeling week 7
 - [x] De code voor het deelproduct staat op je eigen github
