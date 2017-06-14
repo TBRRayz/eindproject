@@ -1,17 +1,15 @@
-class Wall
-{
-    
-    public x:number;
-    public y:number;
-    public width:number = 40;
-    public height:number = 40;
+class Wall {
 
-    public tank:gameObject;
+    public x: number;
+    public y: number;
+    public width: number = 40;
+    public height: number = 40;
+
+    public tank: gameObject;
 
     public Imagewall1: HTMLImageElement;
-    
-    constructor(x: number, y:number) 
-    {
+
+    constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
         this.Imagewall1 = new Image(40, 40);
@@ -19,9 +17,9 @@ class Wall
         this.Draw();
     }
 
-    public Draw():void{
-        
-        ctx.drawImage(this.Imagewall1, this.x , this.y);
+    public Draw(): void {
+
+        ctx.drawImage(this.Imagewall1, this.x, this.y);
 
     }
 }

@@ -68,6 +68,18 @@ var gameObject = (function () {
         this.shellAray = new Array();
         this.shellAlive = false;
     }
+    Object.defineProperty(gameObject.prototype, "x", {
+        get: function () { return this._x; },
+        set: function (value) { this._x = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(gameObject.prototype, "y", {
+        get: function () { return this._y; },
+        set: function (value) { this._y = value; },
+        enumerable: true,
+        configurable: true
+    });
     gameObject.prototype.accelerate = function () {
         this.velocity.copy(this.orientation);
         this.velocity.multiply(this.acceleration);
@@ -165,7 +177,6 @@ var LevelMaps;
             this.tank2 = T2;
             for (var i = 0; i < this.WallArray.length; i++) {
                 if (this.collision.hasOverlap(this.tank1, this.WallArray[i])) {
-                    console.log("tank1hint");
                 }
             }
         };

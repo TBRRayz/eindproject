@@ -1,32 +1,23 @@
-class Moving implements TankBehavior 
-{
+class Moving implements TankBehavior {
     Tank: gameObject;
     //behavior move als de tank beweegd kan hij niet schieten
-    constructor(T : gameObject)
-     {
+    constructor(T: gameObject) {
         this.Tank = T;
     }
 
-   
-    onShoot() 
-    {
+    onShoot() {
         this.Tank.behavior = new Shooting(this.Tank);
     }
-    onRight() 
-    {
+    onRight() {
         this.Tank.turnRight();
     }
-    onLeft() 
-    {
+    onLeft() {
         this.Tank.turnLeft();
     }
-    onUp() 
-    {
+    onUp() {
         this.Tank.accelerate();
-
     }
-    onDown() 
-    {
+    onDown() {
         this.Tank.decelerate();
     }
 }

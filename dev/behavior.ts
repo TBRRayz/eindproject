@@ -1,7 +1,6 @@
-interface TankBehavior 
-{
-    Tank : gameObject;
-    
+interface TankBehavior {
+    Tank: gameObject;
+
     onShoot();
     onRight();
     onLeft();
