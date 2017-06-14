@@ -1,11 +1,11 @@
-### Tankwarz
+# Tankwarz
 
 ik ben tankwarz aan het maken dat is een spel voor 2 spellers waar bij je alle 2 een tank bent en op elkaar kan schieten.
 een tank bestuur je met ASWD en CTRL de andere met de pijltjes en spaties.
 
 ## Programmeerprincipes toegepast
 
-# interface
+## interface
 
     interface TankBehavior {
     Tank: gameObject;
@@ -19,7 +19,7 @@ een tank bestuur je met ASWD en CTRL de andere met de pijltjes en spaties.
 
 Hier is een interface gemaakt, die tegelijkertijd dient als een Strategy Pattern.
 
-# Strategy Pattern
+## Strategy Pattern
 
     interface TankBehavior {
     Tank: gameObject;
@@ -64,7 +64,7 @@ In de moving class:
 Als Strategy Pattern heb ik TankBehavior gemaakt die kan bewegen of schieten.
 
 
-# Singleton
+## Singleton
 
 
         public static getInstance() {
@@ -78,7 +78,7 @@ Als Strategy Pattern heb ik TankBehavior gemaakt die kan bewegen of schieten.
 
 singleton zit in het aanroepen van de game.
     
-# Namespaces
+## Namespaces
 
     namespace LevelMaps {
     export class Level {
@@ -89,7 +89,7 @@ kan je aanroepen op de volgende manier:
     private level: LevelMaps.Level = new LevelMaps.Level();
 
 
-# Enumerations
+## Enumerations
 
         enum GameActive {
         YES,
@@ -107,7 +107,7 @@ kan je aanroepen op de volgende manier:
 
 Enumerations gebruikt bij het controleren of de game active is of niet. Kan je ook gebruiken als je een pause functie erin wil hebben. 
 
-# Inheritance
+## Inheritance
 
     class Tank1 extends gameObject {
 
