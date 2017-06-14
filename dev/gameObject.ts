@@ -1,7 +1,7 @@
 /**
  * gameObject
  */
-class gameObject 
+abstract class gameObject 
 {
     
     public x:number;

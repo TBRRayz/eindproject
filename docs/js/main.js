@@ -16,23 +16,35 @@ var Collision = (function () {
     };
     return Collision;
 }());
+var GameActive;
+(function (GameActive) {
+    GameActive[GameActive["YES"] = 0] = "YES";
+    GameActive[GameActive["NO"] = 1] = "NO";
+    GameActive[GameActive["PAUSE"] = 2] = "PAUSE";
+})(GameActive || (GameActive = {}));
 var Game = (function () {
     function Game() {
         var _this = this;
         this.tank1 = new Tank1(1000, 200);
         this.tank2 = new Tank2(100, 200);
-        this.level = new Level();
+        this.level = new LevelMaps.Level();
+        this.activeGame = GameActive.YES;
         requestAnimationFrame(function () { return _this.gameLoop(); });
     }
     ;
     Game.prototype.gameLoop = function () {
         var _this = this;
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, 1280, 720);
-        this.level.Update(this.tank1, this.tank2);
-        this.tank1.draw();
-        this.tank2.draw();
-        requestAnimationFrame(function () { return _this.gameLoop(); });
+        if (this.activeGame == GameActive.YES) {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, 1280, 720);
+            this.level.Update(this.tank1, this.tank2);
+            this.tank1.draw();
+            this.tank2.draw();
+            requestAnimationFrame(function () { return _this.gameLoop(); });
+        }
+        else {
+            console.log('The game has not started yet or is on pause.');
+        }
     };
     Game.getInstance = function () {
         if (!Game.instance) {
@@ -102,61 +114,65 @@ var gameObject = (function () {
     };
     return gameObject;
 }());
-var Level = (function () {
-    function Level() {
-        this.WallArray = new Array();
-        this.collision = new Collision();
-    }
-    Level.prototype.Update = function (T1, T2) {
-        for (var i = 0; i < 1280; i += 40) {
-            this.WallArray.push(new Wall(i, 0));
+var LevelMaps;
+(function (LevelMaps) {
+    var Level = (function () {
+        function Level() {
+            this.WallArray = new Array();
+            this.collision = new Collision();
         }
-        for (var i = 0; i < 1280; i += 40) {
-            this.WallArray.push(new Wall(i, 640));
-        }
-        for (var i = 0; i < 200; i += 40) {
-            this.WallArray.push(new Wall(i, 320));
-        }
-        for (var i = 1280; i > 1040; i -= 40) {
-            this.WallArray.push(new Wall(i, 320));
-        }
-        for (var i = 480; i < 800; i += 40) {
-            this.WallArray.push(new Wall(i, 160));
-        }
-        for (var i = 160; i < 480; i += 40) {
-            this.WallArray.push(new Wall(i, 520));
-        }
-        for (var i = 800; i < 1120; i += 40) {
-            this.WallArray.push(new Wall(i, 520));
-        }
-        for (var i = 0; i < 640; i += 40) {
-            this.WallArray.push(new Wall(0, i));
-        }
-        for (var i = 0; i < 640; i += 40) {
-            this.WallArray.push(new Wall(1240, i));
-        }
-        for (var i = 0; i < 300; i += 40) {
-            this.WallArray.push(new Wall(320, i));
-        }
-        for (var i = 0; i < 300; i += 40) {
-            this.WallArray.push(new Wall(920, i));
-        }
-        for (var i = 640; i > 340; i -= 40) {
-            this.WallArray.push(new Wall(600, i));
-        }
-        for (var i = 640; i > 340; i -= 40) {
-            this.WallArray.push(new Wall(640, i));
-        }
-        this.tank1 = T1;
-        this.tank2 = T2;
-        for (var i = 0; i < this.WallArray.length; i++) {
-            if (this.collision.hasOverlap(this.tank1, this.WallArray[i])) {
-                console.log("tank1hint");
+        Level.prototype.Update = function (T1, T2) {
+            for (var i = 0; i < 1280; i += 40) {
+                this.WallArray.push(new Wall(i, 0));
             }
-        }
-    };
-    return Level;
-}());
+            for (var i = 0; i < 1280; i += 40) {
+                this.WallArray.push(new Wall(i, 640));
+            }
+            for (var i = 0; i < 200; i += 40) {
+                this.WallArray.push(new Wall(i, 320));
+            }
+            for (var i = 1280; i > 1040; i -= 40) {
+                this.WallArray.push(new Wall(i, 320));
+            }
+            for (var i = 480; i < 800; i += 40) {
+                this.WallArray.push(new Wall(i, 160));
+            }
+            for (var i = 160; i < 480; i += 40) {
+                this.WallArray.push(new Wall(i, 520));
+            }
+            for (var i = 800; i < 1120; i += 40) {
+                this.WallArray.push(new Wall(i, 520));
+            }
+            for (var i = 0; i < 640; i += 40) {
+                this.WallArray.push(new Wall(0, i));
+            }
+            for (var i = 0; i < 640; i += 40) {
+                this.WallArray.push(new Wall(1240, i));
+            }
+            for (var i = 0; i < 300; i += 40) {
+                this.WallArray.push(new Wall(320, i));
+            }
+            for (var i = 0; i < 300; i += 40) {
+                this.WallArray.push(new Wall(920, i));
+            }
+            for (var i = 640; i > 340; i -= 40) {
+                this.WallArray.push(new Wall(600, i));
+            }
+            for (var i = 640; i > 340; i -= 40) {
+                this.WallArray.push(new Wall(640, i));
+            }
+            this.tank1 = T1;
+            this.tank2 = T2;
+            for (var i = 0; i < this.WallArray.length; i++) {
+                if (this.collision.hasOverlap(this.tank1, this.WallArray[i])) {
+                    console.log("tank1hint");
+                }
+            }
+        };
+        return Level;
+    }());
+    LevelMaps.Level = Level;
+})(LevelMaps || (LevelMaps = {}));
 var canvas;
 var ctx;
 window.addEventListener("load", function () {
