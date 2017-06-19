@@ -1,4 +1,4 @@
-# Tankwarz
+
 
 ik ben tankwarz aan het maken dat is een spel voor 2 spellers waar bij je alle 2 een tank bent en op elkaar kan schieten.
 een tank bestuur je met ASWD en CTRL de andere met de pijltjes en spaties. 
