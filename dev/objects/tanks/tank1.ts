@@ -1,10 +1,10 @@
-/// <reference path="gameObject.ts" />
+/// <reference path="../gameObject.ts" />
 
 
 class Tank1 extends gameObject {
 
     constructor(x: number, y: number) {
-        super()
+        super();
         this.x = x;
         this.y = y;
 
@@ -46,7 +46,7 @@ class Tank1 extends gameObject {
     public update(): void {
         //update van de tank hier word de update van de kogel aangroepen.
         if (this.shellAlive == true) {
-            for (var i = 0; i < this.shellAray.length; i++) {
+            for (let i = 0; i < this.shellAray.length; i++) {
 
                 this.shellAray[i].update(this.orientation);
             }

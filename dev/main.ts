@@ -1,5 +1,5 @@
-var canvas: HTMLCanvasElement;
-var ctx: CanvasRenderingContext2D;
+let canvas: HTMLCanvasElement;
+let ctx: CanvasRenderingContext2D;
 
 // load
 window.addEventListener("load", function () {
