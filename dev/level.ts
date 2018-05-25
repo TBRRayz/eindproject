@@ -1,4 +1,4 @@
-/// <reference path="Collision.ts" />
+/// <reference path="collision.ts" />
 
 namespace LevelMaps {
     export class Level {
