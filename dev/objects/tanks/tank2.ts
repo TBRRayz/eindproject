@@ -46,7 +46,7 @@ class Tank2 extends gameObject {
     public update(): void {
 
         if (this.shellAlive == true) {
-            for (var i = 0; i < this.shellAray.length; i++) {
+            for (let i = 0; i < this.shellAray.length; i++) {
 
                 this.shellAray[i].update(this.orientation);
             }

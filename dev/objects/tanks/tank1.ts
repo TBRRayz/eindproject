@@ -46,7 +46,7 @@ class Tank1 extends gameObject {
     public update(): void {
         //update van de tank hier word de update van de kogel aangroepen.
         if (this.shellAlive == true) {
-            for (var i = 0; i < this.shellAray.length; i++) {
+            for (let i = 0; i < this.shellAray.length; i++) {
 
                 this.shellAray[i].update(this.orientation);
             }
