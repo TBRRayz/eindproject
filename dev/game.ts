@@ -8,13 +8,13 @@ class Game {
 
     private static instance: Game;
 
-    private tank1: Tank1 = new Tank1(1000, 200);;
+    private tank1: Tank1 = new Tank1(1000, 200);
     private tank2: Tank2 = new Tank2(100, 200);
     private level: LevelMaps.Level = new LevelMaps.Level();
 
     private activeGame: GameActive = GameActive.YES;
 
-    constructor() {
+    private constructor() {
         //gameloop aanroepen
         requestAnimationFrame(() => this.gameLoop());
     }
