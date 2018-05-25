@@ -1,7 +1,7 @@
-/// <reference path="gameObject.ts" />
+/// <reference path="../gameObject.ts" />
 
 
-class Tank1 extends gameObject {
+class Tank2 extends gameObject {
 
     constructor(x: number, y: number) {
         super()
@@ -11,40 +11,40 @@ class Tank1 extends gameObject {
         this.behavior = new Moving(this);
 
         this.Image = new Image(this.width, this.height);
-        this.Image.src = "images/tank.png";
+        this.Image.src = "images/tank2.png";
 
         window.addEventListener("keydown", (e) => this.onKeyDown(e));
 
 
     }
     private onKeyDown(event: KeyboardEvent): void {
-        //als een toetsenbord knop omlaag is een behavior uitvoeren 
         switch (event.keyCode) {
 
-            case 39: //RIGHT
+            case 68: //D
                 this.behavior.onRight();
                 break;
 
-            case 40: //dOWN
+            case 83: //W
                 this.behavior.onDown();
                 break;
-            case 38: //UP
+            case 87: //S
                 this.behavior.onUp();
                 break;
 
-            case 37: //LEFT
+            case 65: //A
                 this.behavior.onLeft();
                 break;
 
-            case 32: //space
+            case 17: //CTRL
                 this.behavior.onShoot();
                 break;
         }
 
     }
 
+
     public update(): void {
-        //update van de tank hier word de update van de kogel aangroepen.
+
         if (this.shellAlive == true) {
             for (var i = 0; i < this.shellAray.length; i++) {
 
@@ -55,7 +55,6 @@ class Tank1 extends gameObject {
     }
 
     public draw = (): void => {
-        //teken de tank
         this.update();
         this.x += this.velocity.x;
         this.y += this.velocity.y;
